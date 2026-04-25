@@ -15,13 +15,22 @@ def search_brave(api_key: str, query: str, count: int, filter_list: Optional[lis
         api_key (str): A Brave Search API key
         query (str): The query to search for
     """
-    url = 'https://api.search.brave.com/res/v1/web/search'
+
+    url = 'https://api.search.brave.com/res/v1/llm/context'
     headers = {
         'Accept': 'application/json',
         'Accept-Encoding': 'gzip',
         'X-Subscription-Token': api_key,
     }
-    params = {'q': query, 'count': count}
+    
+    params = {
+        'q': query,
+        'maximum_number_of_urls': count,
+        'maximum_number_of_tokens': 8192,
+        'maximum_number_of_tokens_per_url': 4096,
+        'maximum_number_of_snippets_per_url': 50,
+        'context_threshold_mode': 'balanced',
+    }
 
     response = requests.get(url, headers=headers, params=params)
 
@@ -35,7 +44,7 @@ def search_brave(api_key: str, query: str, count: int, filter_list: Optional[lis
     response.raise_for_status()
 
     json_response = response.json()
-    results = json_response.get('web', {}).get('results', [])
+    results = json_response.get('grounding', {}).get('generic', [])
     if filter_list:
         results = get_filtered_results(results, filter_list)
 
@@ -43,7 +52,8 @@ def search_brave(api_key: str, query: str, count: int, filter_list: Optional[lis
         SearchResult(
             link=result['url'],
             title=result.get('title'),
-            snippet=result.get('description'),
+            snippet='\n\n'.join(result.get('snippets', [])),
         )
         for result in results[:count]
     ]
+    
