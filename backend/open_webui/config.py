@@ -3310,6 +3310,61 @@ BRAVE_SEARCH_API_KEY = PersistentConfig(
     os.getenv('BRAVE_SEARCH_API_KEY', ''),
 )
 
+BRAVE_SEARCH_COUNTRY = PersistentConfig(
+    'BRAVE_SEARCH_COUNTRY',
+    'rag.web.search.brave_search_country',
+    os.getenv('BRAVE_SEARCH_COUNTRY', ''),
+)
+
+BRAVE_SEARCH_LANG = PersistentConfig(
+    'BRAVE_SEARCH_LANG',
+    'rag.web.search.brave_search_lang',
+    os.getenv('BRAVE_SEARCH_LANG', ''),
+)
+
+BRAVE_SEARCH_SPELLCHECK = PersistentConfig(
+    'BRAVE_SEARCH_SPELLCHECK',
+    'rag.web.search.brave_search_spellcheck',
+    (os.getenv('BRAVE_SEARCH_SPELLCHECK', '').lower() == 'true' if os.getenv('BRAVE_SEARCH_SPELLCHECK') else None),
+)
+
+BRAVE_SEARCH_MAX_TOKENS = PersistentConfig(
+    'BRAVE_SEARCH_MAX_TOKENS',
+    'rag.web.search.brave_search_max_tokens',
+    int(os.getenv('BRAVE_SEARCH_MAX_TOKENS', '8192')),
+)
+
+BRAVE_SEARCH_MAX_TOKENS_PER_URL = PersistentConfig(
+    'BRAVE_SEARCH_MAX_TOKENS_PER_URL',
+    'rag.web.search.brave_search_max_tokens_per_url',
+    int(os.getenv('BRAVE_SEARCH_MAX_TOKENS_PER_URL', '4096')),
+)
+
+BRAVE_SEARCH_MAX_SNIPPETS_PER_URL = PersistentConfig(
+    'BRAVE_SEARCH_MAX_SNIPPETS_PER_URL',
+    'rag.web.search.brave_search_max_snippets_per_url',
+    int(os.getenv('BRAVE_SEARCH_MAX_SNIPPETS_PER_URL', '50')),
+)
+
+BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE = PersistentConfig(
+    'BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE',
+    'rag.web.search.brave_search_context_threshold_mode',
+    os.getenv('BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE', 'balanced'),
+)
+
+BRAVE_SEARCH_FRESHNESS = PersistentConfig(
+    'BRAVE_SEARCH_FRESHNESS',
+    'rag.web.search.brave_search_freshness',
+    os.getenv('BRAVE_SEARCH_FRESHNESS', ''),
+)
+
+BRAVE_SEARCH_GOGGLES = PersistentConfig(
+    'BRAVE_SEARCH_GOGGLES',
+    'rag.web.search.brave_search_goggles',
+    os.getenv('BRAVE_SEARCH_GOGGLES', ''),
+)
+
+
 KAGI_SEARCH_API_KEY = PersistentConfig(
     'KAGI_SEARCH_API_KEY',
     'rag.web.search.kagi_search_api_key',

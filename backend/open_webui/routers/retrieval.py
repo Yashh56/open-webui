@@ -531,6 +531,15 @@ async def get_rag_config(request: Request, user=Depends(get_admin_user)):
             'GOOGLE_PSE_API_KEY': request.app.state.config.GOOGLE_PSE_API_KEY,
             'GOOGLE_PSE_ENGINE_ID': request.app.state.config.GOOGLE_PSE_ENGINE_ID,
             'BRAVE_SEARCH_API_KEY': request.app.state.config.BRAVE_SEARCH_API_KEY,
+            'BRAVE_SEARCH_COUNTRY': request.app.state.config.BRAVE_SEARCH_COUNTRY,
+            'BRAVE_SEARCH_LANG': request.app.state.config.BRAVE_SEARCH_LANG,
+            'BRAVE_SEARCH_SPELLCHECK': request.app.state.config.BRAVE_SEARCH_SPELLCHECK,
+            'BRAVE_SEARCH_MAX_TOKENS': request.app.state.config.BRAVE_SEARCH_MAX_TOKENS,
+            'BRAVE_SEARCH_MAX_TOKENS_PER_URL': request.app.state.config.BRAVE_SEARCH_MAX_TOKENS_PER_URL,
+            'BRAVE_SEARCH_MAX_SNIPPETS_PER_URL': request.app.state.config.BRAVE_SEARCH_MAX_SNIPPETS_PER_URL,
+            'BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE': request.app.state.config.BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE,
+            'BRAVE_SEARCH_FRESHNESS': request.app.state.config.BRAVE_SEARCH_FRESHNESS,
+            'BRAVE_SEARCH_GOGGLES': request.app.state.config.BRAVE_SEARCH_GOGGLES,
             'KAGI_SEARCH_API_KEY': request.app.state.config.KAGI_SEARCH_API_KEY,
             'MOJEEK_SEARCH_API_KEY': request.app.state.config.MOJEEK_SEARCH_API_KEY,
             'BOCHA_SEARCH_API_KEY': request.app.state.config.BOCHA_SEARCH_API_KEY,
@@ -599,6 +608,15 @@ class WebConfig(BaseModel):
     GOOGLE_PSE_API_KEY: Optional[str] = None
     GOOGLE_PSE_ENGINE_ID: Optional[str] = None
     BRAVE_SEARCH_API_KEY: Optional[str] = None
+    BRAVE_SEARCH_COUNTRY: Optional[str] = None
+    BRAVE_SEARCH_LANG: Optional[str] = None
+    BRAVE_SEARCH_SPELLCHECK: Optional[bool] = None
+    BRAVE_SEARCH_MAX_TOKENS: Optional[int] = None
+    BRAVE_SEARCH_MAX_TOKENS_PER_URL: Optional[int] = None
+    BRAVE_SEARCH_MAX_SNIPPETS_PER_URL: Optional[int] = None
+    BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE: Optional[str] = None
+    BRAVE_SEARCH_FRESHNESS: Optional[str] = None
+    BRAVE_SEARCH_GOGGLES: Optional[str] = None
     KAGI_SEARCH_API_KEY: Optional[str] = None
     MOJEEK_SEARCH_API_KEY: Optional[str] = None
     BOCHA_SEARCH_API_KEY: Optional[str] = None
@@ -1081,6 +1099,15 @@ async def update_rag_config(request: Request, form_data: ConfigForm, user=Depend
         request.app.state.config.GOOGLE_PSE_API_KEY = form_data.web.GOOGLE_PSE_API_KEY
         request.app.state.config.GOOGLE_PSE_ENGINE_ID = form_data.web.GOOGLE_PSE_ENGINE_ID
         request.app.state.config.BRAVE_SEARCH_API_KEY = form_data.web.BRAVE_SEARCH_API_KEY
+        request.app.state.config.BRAVE_SEARCH_COUNTRY = form_data.web.BRAVE_SEARCH_COUNTRY
+        request.app.state.config.BRAVE_SEARCH_LANG = form_data.web.BRAVE_SEARCH_LANG
+        request.app.state.config.BRAVE_SEARCH_SPELLCHECK = form_data.web.BRAVE_SEARCH_SPELLCHECK
+        request.app.state.config.BRAVE_SEARCH_MAX_TOKENS = form_data.web.BRAVE_SEARCH_MAX_TOKENS
+        request.app.state.config.BRAVE_SEARCH_MAX_TOKENS_PER_URL = form_data.web.BRAVE_SEARCH_MAX_TOKENS_PER_URL
+        request.app.state.config.BRAVE_SEARCH_MAX_SNIPPETS_PER_URL = form_data.web.BRAVE_SEARCH_MAX_SNIPPETS_PER_URL
+        request.app.state.config.BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE = form_data.web.BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE
+        request.app.state.config.BRAVE_SEARCH_FRESHNESS = form_data.web.BRAVE_SEARCH_FRESHNESS
+        request.app.state.config.BRAVE_SEARCH_GOGGLES = form_data.web.BRAVE_SEARCH_GOGGLES
         request.app.state.config.KAGI_SEARCH_API_KEY = form_data.web.KAGI_SEARCH_API_KEY
         request.app.state.config.MOJEEK_SEARCH_API_KEY = form_data.web.MOJEEK_SEARCH_API_KEY
         request.app.state.config.BOCHA_SEARCH_API_KEY = form_data.web.BOCHA_SEARCH_API_KEY
@@ -1216,6 +1243,15 @@ async def update_rag_config(request: Request, form_data: ConfigForm, user=Depend
             'GOOGLE_PSE_API_KEY': request.app.state.config.GOOGLE_PSE_API_KEY,
             'GOOGLE_PSE_ENGINE_ID': request.app.state.config.GOOGLE_PSE_ENGINE_ID,
             'BRAVE_SEARCH_API_KEY': request.app.state.config.BRAVE_SEARCH_API_KEY,
+            'BRAVE_SEARCH_COUNTRY': request.app.state.config.BRAVE_SEARCH_COUNTRY,
+            'BRAVE_SEARCH_LANG': request.app.state.config.BRAVE_SEARCH_LANG,
+            'BRAVE_SEARCH_SPELLCHECK': request.app.state.config.BRAVE_SEARCH_SPELLCHECK,
+            'BRAVE_SEARCH_MAX_TOKENS': request.app.state.config.BRAVE_SEARCH_MAX_TOKENS,
+            'BRAVE_SEARCH_MAX_TOKENS_PER_URL': request.app.state.config.BRAVE_SEARCH_MAX_TOKENS_PER_URL,
+            'BRAVE_SEARCH_MAX_SNIPPETS_PER_URL': request.app.state.config.BRAVE_SEARCH_MAX_SNIPPETS_PER_URL,
+            'BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE': request.app.state.config.BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE,
+            'BRAVE_SEARCH_FRESHNESS': request.app.state.config.BRAVE_SEARCH_FRESHNESS,
+            'BRAVE_SEARCH_GOGGLES': request.app.state.config.BRAVE_SEARCH_GOGGLES,
             'KAGI_SEARCH_API_KEY': request.app.state.config.KAGI_SEARCH_API_KEY,
             'MOJEEK_SEARCH_API_KEY': request.app.state.config.MOJEEK_SEARCH_API_KEY,
             'BOCHA_SEARCH_API_KEY': request.app.state.config.BOCHA_SEARCH_API_KEY,
@@ -1960,6 +1996,15 @@ def search_web(request: Request, engine: str, query: str, user=None) -> list[Sea
                 query,
                 request.app.state.config.WEB_SEARCH_RESULT_COUNT,
                 request.app.state.config.WEB_SEARCH_DOMAIN_FILTER_LIST,
+                country=request.app.state.config.BRAVE_SEARCH_COUNTRY or None,
+                search_lang=request.app.state.config.BRAVE_SEARCH_LANG or None,
+                spellcheck=request.app.state.config.BRAVE_SEARCH_SPELLCHECK,
+                maximum_number_of_tokens=request.app.state.config.BRAVE_SEARCH_MAX_TOKENS,
+                maximum_number_of_tokens_per_url=request.app.state.config.BRAVE_SEARCH_MAX_TOKENS_PER_URL,
+                maximum_number_of_snippets_per_url=request.app.state.config.BRAVE_SEARCH_MAX_SNIPPETS_PER_URL,
+                context_threshold_mode=request.app.state.config.BRAVE_SEARCH_CONTEXT_THRESHOLD_MODE,
+                freshness=request.app.state.config.BRAVE_SEARCH_FRESHNESS or None,
+                goggles=request.app.state.config.BRAVE_SEARCH_GOGGLES or None,
             )
         else:
             raise Exception('No BRAVE_SEARCH_API_KEY found in environment variables')
