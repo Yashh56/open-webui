@@ -121,8 +121,25 @@
 	let messageInput: MessageInput | undefined;
 
 	let autoScroll = true;
+	let showScrollToTop = false;
+	let showScrollToBottom = false;
 	let processing = '';
 	let messagesContainerElement: HTMLDivElement;
+
+	const updateScrollButtonsState = () => {
+		if (!messagesContainerElement) return;
+
+		const distanceFromBottom =
+			messagesContainerElement.scrollHeight -
+			messagesContainerElement.scrollTop -
+			messagesContainerElement.clientHeight;
+		const distanceFromTop = messagesContainerElement.scrollTop;
+		const visibilityThreshold = Math.max(120, messagesContainerElement.clientHeight * 0.5);
+
+		autoScroll = distanceFromBottom <= 5;
+		showScrollToBottom = distanceFromBottom > visibilityThreshold;
+		showScrollToTop = !autoScroll && distanceFromTop > visibilityThreshold;
+	};
 
 	let navbarElement;
 
@@ -2903,13 +2920,11 @@
 					<div id="chat-pane" class="flex flex-col flex-auto z-10 w-full @container overflow-auto">
 						{#if ($settings?.landingPageMode === 'chat' && !$selectedFolder) || createMessagesList(history, history.currentId).length > 0}
 							<div
-								class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
+								class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10"
 								id="messages-container"
 								bind:this={messagesContainerElement}
 								on:scroll={(e) => {
-									autoScroll =
-										messagesContainerElement.scrollHeight - messagesContainerElement.scrollTop <=
-										messagesContainerElement.clientHeight + 5;
+									updateScrollButtonsState();
 								}}
 							>
 								<div class=" h-full w-full flex flex-col">
@@ -2947,6 +2962,8 @@
 									bind:files
 									bind:prompt
 									bind:autoScroll
+									bind:showScrollToTop
+									bind:showScrollToBottom
 									bind:selectedToolIds
 									bind:selectedFilterIds
 									bind:imageGenerationEnabled

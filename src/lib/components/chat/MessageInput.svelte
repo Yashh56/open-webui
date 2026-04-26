@@ -110,6 +110,8 @@
 	export let stopResponse: Function;
 
 	export let autoScroll = false;
+	export let showScrollToTop = false;
+	export let showScrollToBottom = false;
 	export let generating = false;
 	export let uploadPending = false;
 
@@ -544,6 +546,14 @@
 		const element = document.getElementById('messages-container');
 		element.scrollTo({
 			top: element.scrollHeight,
+			behavior: 'smooth'
+		});
+	};
+
+	const scrollToTop = () => {
+		const element = document.getElementById('messages-container');
+		element.scrollTo({
+			top: 0,
 			behavior: 'smooth'
 		});
 	};
@@ -1163,30 +1173,61 @@
 					: 'max-w-6xl'} w-full"
 			>
 				<div class="relative">
-					{#if autoScroll === false && history?.currentId}
+					{#if (showScrollToTop || showScrollToBottom) && history?.currentId}
 						<div
-							class=" absolute -top-12 left-0 right-0 flex justify-center z-30 pointer-events-none"
+							class=" absolute -top-24 left-0 right-0 flex justify-center z-30 pointer-events-none"
 						>
-							<button
-								class=" bg-white border border-gray-100 dark:border-none dark:bg-white/20 p-1.5 rounded-full pointer-events-auto"
-								on:click={() => {
-									autoScroll = true;
-									scrollToBottom();
-								}}
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="w-5 h-5"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							</button>
+							<div class="flex flex-col items-center gap-2 pointer-events-auto">
+								{#if showScrollToTop}
+									<button
+										aria-label={$i18n.t('Go to the Top')}
+										title={$i18n.t('Go to the Top')}
+										class="bg-white border border-gray-100 dark:border-none dark:bg-white/20 p-1.5 rounded-full"
+										on:click={() => {
+											autoScroll = false;
+											scrollToTop();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											class="w-5 h-5"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 11-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									</button>
+								{/if}
+
+								{#if showScrollToBottom}
+									<button
+										aria-label={$i18n.t('Go to the Bottom')}
+										title={$i18n.t('Go to the Bottom')}
+										class="bg-white border border-gray-100 dark:border-none dark:bg-white/20 p-1.5 rounded-full"
+										on:click={() => {
+											autoScroll = true;
+											scrollToBottom();
+										}}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											class="w-5 h-5"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									</button>
+								{/if}
+							</div>
 						</div>
 					{/if}
 				</div>
